@@ -4,6 +4,7 @@
 #include "Calculator.h"
 #include "Console.h"
 #include "Input.h"
+#include <Menu.h>
 
 int AddOne(int localNumber)
 {
@@ -36,6 +37,31 @@ int main()
     Console::WriteLine("Hello PG2!", ConsoleColor::Yellow, ConsoleColor::Red);
     Input::PressEnter("Press enter to continue...", true);
 
+    std::string best = Input::GetString("What is the best superhero?");
+    std::cout << "Obviously the best is " << best << "\n";
+
+    int age = Input::GetInteger("Age of your superhero?", 1, 100);
+    std::cout << "The age of your superhero is " << age << "\n";
+    Input::PressEnter("Press enter to continue...", true);
+
+
+    Menu cafe;
+    cafe.AddMenuItem("Bagel");
+    cafe.AddMenuItem("Everything Bagel");
+    cafe.AddMenuItem("Lox");
+    cafe.AddMenuItem("Yogurt");
+    cafe.AddMenuItem("Granola");
+    cafe.ShowMenu();
+
+    Menu mcD;
+    mcD.AddMenuItem("McGriddle");
+    mcD.AddMenuItem("Egg McMuffin");
+    mcD.AddMenuItem("Hashbrowns");
+    mcD.ShowMenu();
+    std::cout << "\n\n";
+    mcD.RemoveItem("hashbrowns");
+    mcD.ShowMenu();
+    std::cout << "\n\n";
     /*
       Calling a method
         use the methods name.
@@ -61,10 +87,13 @@ int main()
     //Examples:
     //  calling a static method, prefix with the class name...
     double factor = Calculator::mult(5, 3);
+    std::cout << "5 * 3 = " << factor << "\n";
 
     //calling a non-static method, use the variable...
     Calculator t1000;
-    int diff = t1000.minus(7, 2);
+    int n1 = 7, n2 = 2;
+    int diff = t1000.minus(n1, n2);
+    std::cout << "7 - 2 = " << diff << "\n";
 
 
     /*
