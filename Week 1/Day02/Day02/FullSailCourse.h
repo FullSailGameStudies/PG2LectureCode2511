@@ -9,6 +9,8 @@ public:
 	//const methods CANNOT change class members (ex. name_)
 	void GetGrades(std::vector<float>& courseGrades)const;
 
+	void PrintGrades(const std::vector<float>& courseGrades) const;
+
 	const std::string& GetName() const { return name_; }
 	void SetName(const std::string& name)
 	{

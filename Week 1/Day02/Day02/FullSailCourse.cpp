@@ -1,4 +1,5 @@
 #include "FullSailCourse.h"
+#include <iostream>
 
 //a DEFINITION
 void FullSailCourse::GetGrades(std::vector<float>& courseGrades) const
@@ -16,5 +17,15 @@ void FullSailCourse::GetGrades(std::vector<float>& courseGrades) const
 		// % returns the remainder
 		// % 10001 returns a value from 0-10000
 		courseGrades.push_back(rand() % 10001 / 100.0);
+	}
+}
+
+void FullSailCourse::PrintGrades(const std::vector<float>& courseGrades) const
+{
+	std::cout << name_ << " Grades\n";
+	//const float&
+	for (auto& grade : courseGrades)
+	{
+		std::cout << grade << "\n";
 	}
 }

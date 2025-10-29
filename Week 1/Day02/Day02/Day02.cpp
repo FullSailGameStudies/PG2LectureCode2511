@@ -32,6 +32,17 @@ void print(const std::vector<int>& scores)
 
 void printInfo(const std::vector<int>& scores)
 {
+    //vector uses an array internally to store the data
+    //size() - how many items are in the vector
+    //capacity() - how big the internal array is
+    //size() is ALWAYS <= capacity()
+
+    //when push_back would make the size > capacity,
+    //the vector "resizes" the array
+    //"resizes" means to...
+    // 1) create a new array
+    // 2) copy the old array to the new array
+    // 3) use the new array (get rid of the old)
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
@@ -113,16 +124,18 @@ int main()
     std::vector<float> grades;
     FullSailCourse pg2;
     pg2.GetGrades(grades);
-    std::cout << "\n\nPG2 2511\n";
-    for (int i = 0; i < grades.size(); i++)
-    {
-        std::cout << grades[i] << "\n";
-    }
-    //foreach (range-based for)
-    for (float& grade : grades)
-    {
-        std::cout << grade << "\n";
-    }
+    pg2.SetName("Pg2 2511");
+    pg2.PrintGrades(grades);
+    //std::cout << "\n\nPG2 2511\n";
+    //for (int i = 0; i < grades.size(); i++)
+    //{
+    //    std::cout << grades[i] << "\n";
+    //}
+    ////foreach (range-based for)
+    //for (float& grade : grades)
+    //{
+    //    std::cout << grade << "\n";
+    //}
     //auto gradesIter = grades.begin();
 
 
@@ -141,11 +154,15 @@ int main()
 
 
     std::vector<int> highScores;
+    highScores.reserve(10);
+    printInfo(highScores);//size: 0  capacity: ?
     for (int i = 0; i < 10; ++i)
     {
         highScores.push_back(rand() % 5000);
         printInfo(highScores);//size: ?  capacity: ?
     }
+    highScores.erase(highScores.begin() + 4);//erase the 5th item
+    printInfo(highScores);//size: ?  capacity: ?
     float avg = average(highScores);
 
 
@@ -179,6 +196,44 @@ int main()
     print(highScores);
 
     //erase all scores < 2500
+    for (int i = 0; i < highScores.size(); i++)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+            --i;
+        }
+    }
+    //OR...
+    for (int i = 0; i < highScores.size(); )
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+        else
+            i++;
+    }
+    //OR...
+    //reverse for loop
+    for (int i = highScores.size() - 1; i >= 0; i--)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+    }
+    //OR...
+    for (auto scoreIter = highScores.begin(); scoreIter != highScores.end();)
+    {
+        if (*scoreIter < 2500)
+        {
+            scoreIter = highScores.erase(scoreIter);
+        }
+        else
+            scoreIter++;
+    }
+
 
     print(highScores);
 
