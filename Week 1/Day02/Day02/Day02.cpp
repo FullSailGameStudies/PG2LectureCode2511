@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include <Console.h>
+#include "FullSailCourse.h"
 
 bool postFix(std::string& hero)
 {
@@ -33,8 +35,58 @@ void printInfo(const std::vector<int>& scores)
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
+//copies are "expensive"
+//creating a new variable and copying one value to it
+void PrintMe(int n)//Pass-by-value (COPY)
+{
+    std::cout << n;
+}
+//should I mark it const?
+// does the method need to change it? if no, then use 'const'
+
+//use pass-by-reference (ALIAS)
+// prevents a copy (performs better)
+// when do we use it?
+//   1)when the parameter is a class
+//   2)when you need to change the variable in another scope
+void PrintMe(const std::string& message)
+{
+    Console::WriteLine(message, ConsoleColor::Green);
+}
+void Incrementer(int& num)//NO COPIES
+{
+    num++;
+}
+//pass nums by ref to prevent a copy
+//pass min and max by ref to change their values in the other scope
+void MinMax(std::vector<int>& nums, int& min, int& max)
+{
+
+}
+
 int main()
 {
+    std::string msg = "Hello Gotham";
+    PrintMe(msg);
+    PrintMe("Hello Gotham");
+    int n = 5;
+    int& nAlias = n;//nAlias is also n
+    Incrementer(nAlias);
+    PrintMe(n);//copies this 'n' to PrintMe's 'n'
+    //&n means get the address-of n
+    //std::cout << &n << "\n" << &nAlias << "\n";
+
+    std::cout << n << "\t" << nAlias << "\n";
+    nAlias++;
+    std::cout << n << "\t" << nAlias << "\n\n\n";
+    int n2 = 10;
+    //after creating the reference, you cannot change
+    //what variable it refers to
+    nAlias = n2;//ONLY copies n2 to nAlias
+    nAlias++;
+    std::cout << n << "\t" << nAlias << "\t" << n2 << "\n\n\n";
+
+
     /*
         ╔══════════════════════════════╗
         ║Parameters: Pass by Reference.║
@@ -59,6 +111,19 @@ int main()
 
     */
     std::vector<float> grades;
+    FullSailCourse pg2;
+    pg2.GetGrades(grades);
+    std::cout << "\n\nPG2 2511\n";
+    for (int i = 0; i < grades.size(); i++)
+    {
+        std::cout << grades[i] << "\n";
+    }
+    //foreach (range-based for)
+    for (float& grade : grades)
+    {
+        std::cout << grade << "\n";
+    }
+    //auto gradesIter = grades.begin();
 
 
 
@@ -70,6 +135,11 @@ int main()
 
         This is the way you pass by reference and prevent the method from changing the variable.
     */
+    //const means the variable cannot be changed
+    const int nConst = 10;
+    //nConst++;
+
+
     std::vector<int> highScores;
     for (int i = 0; i < 10; ++i)
     {
