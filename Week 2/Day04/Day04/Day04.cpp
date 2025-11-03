@@ -17,10 +17,23 @@ std::string toUpper(const std::string& original)
     return copy;
 }
 
+//recursion is another kind of loop
 void recursiveLoop(int N)
 {
-    recursiveLoop(N + 1);
-}
+    //ALL recursive methods require an EXIT condition (base case)
+    if(N < 10) //loop while N < 10
+    {
+        //recursive loops really are 2 loops
+        //1st loop- going out loop
+        //2nd loop - coming back loop (unwinding the stack)
+        std::cout << N << "\n";
+        recursiveLoop(N + 1);//recursive condition (the method calls itself)
+        Console::WriteLine(N, (ConsoleColor)(rand() % 8));
+    }
+}//where does the method return to?? to whomever calls it
+
+
+//DO NOT use recursion for indeterminant loops
 
 unsigned long factorial(unsigned int N)
 {
@@ -55,8 +68,38 @@ unsigned long factorial(unsigned int N)
 
 */
 
+void PrintMe(int i)
+{
+    std::cout << i << " ";
+}
+
+void Bats(int i = 0)
+{
+    if(i < 100)//exit condition
+    {
+        std::cout << (char)78 << (char)65 << ' ';
+        //i++ - POST increment
+        //++i - PRE increment (slightly better performance)
+        Bats(i+1);//recursive case (where we call the method again)
+    }
+}
 int main()
 {
+    //determinant vs indeterminant loops
+    //determinant: know how times it will loop
+    for (int i = 0; i < 10; i++)
+    {
+        PrintMe(i);
+    }
+    int j = 0;
+    while (true)
+    {
+        std::cout << j << " ";
+        j++;
+        if (j >= 10) break;
+    }
+
+
     std::vector<std::string> names = { "Wonder Woman", "Superman", "Batman", "Flash", "Aquaman" };
     //call your BubbleSort on the names vector.
 
@@ -93,13 +136,13 @@ int main()
             convert this for loop to a recursive method called Bats.
             Call Bats here in Main.
 
-            for(int i = 0;i < 100;i++)
+            for(int i = 0;i < 100;++i)
             {
                 std::cout << (char)78 << (char)65 << ' ';
             }
     */
     //call Bats here.
-
+    Bats();
     char c[] = { '\n', 66, 65, 84, 77, 65, 78, 33, 33 };
     for (auto ch : c) std::cout << ch;
 
