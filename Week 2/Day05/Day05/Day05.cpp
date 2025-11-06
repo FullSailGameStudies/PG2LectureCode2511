@@ -14,7 +14,9 @@ enum class Weapon
 	Sword, Axe, Spear, Mace
 };
 
+
 const int NOT_FOUND = -1;
+
 
 /// <summary>
 /// Searches a vector of ints for a specific number using
