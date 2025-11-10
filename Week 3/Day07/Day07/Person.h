@@ -33,6 +33,9 @@ private:
 	// eat, sleep, work, dance, sing, attack?, walk
 
 public:
+	//METHODS
+	void Eat(const std::string& food);
+
 	//CONSTRUCTORS (ctors)
 	//	special methods to initialize the fields of the object
 	//  IF you do NOT create a ctor, the compiler will give you a default ctor

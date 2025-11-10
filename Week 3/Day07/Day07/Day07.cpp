@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Person.h"
+#include "Card.h"
 
 
 /*              CLASSESS
@@ -46,11 +47,15 @@
 int main()
 {
     Person steve("Steve Austin", 35);//create a Person object
+    Person bruce("Bruce Wayne", 30);
     //steve.SetName("Steve");
     //steve.Age(12);
     std::cout << "Hello. My name is " << steve.GetName();
     std::cout << ". And I am " << steve.Age() << " years old.\n";
 
+    Card ace("A", "Spades");
+    ace.Print();
+    std::cout << "\nValue: " << ace.Value() << "\n";
 
     /*
         CHALLENGE:
