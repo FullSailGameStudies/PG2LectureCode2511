@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include "Person.h"
 
 
 /*              CLASSESS
@@ -44,10 +45,10 @@
 
 int main()
 {
-    /*
-        Lecture code: add a Car class
-    
-    */
+    Person steve;//create a Person object
+    //steve.name_ = "Steve";
+    steve.Age();
+
 
     /*
         CHALLENGE:
