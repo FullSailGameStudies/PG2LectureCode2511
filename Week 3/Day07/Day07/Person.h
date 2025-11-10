@@ -33,6 +33,18 @@ private:
 	// eat, sleep, work, dance, sing, attack?, walk
 
 public:
+	//CONSTRUCTORS (ctors)
+	//	special methods to initialize the fields of the object
+	//  IF you do NOT create a ctor, the compiler will give you a default ctor
+	//		a default ctor does NOT have any parameters
+	//  IF you DO create a ctor, the compiler's default ctor is NO longer available
+	//  if the ctor is simply enough, you can define it in the header
+	// 
+	//	RULES:
+	//		MUST be named the same as the class
+	//		CANNOT have any return type specified (not even void)
+	Person(const std::string& name, int age);
+	
 	//getters and setters can be defined in the header file
 	//getters (accessors) methods
 	//  PATTERN:

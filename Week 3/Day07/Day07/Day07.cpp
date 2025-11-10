@@ -45,9 +45,11 @@
 
 int main()
 {
-    Person steve;//create a Person object
-    //steve.name_ = "Steve";
-    steve.Age();
+    Person steve("Steve Austin", 35);//create a Person object
+    //steve.SetName("Steve");
+    //steve.Age(12);
+    std::cout << "Hello. My name is " << steve.GetName();
+    std::cout << ". And I am " << steve.Age() << " years old.\n";
 
 
     /*
