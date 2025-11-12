@@ -6,6 +6,8 @@
 #include "Inheritance.h"
 #include "Polymorphism.h"
 #include "Car.h"
+#include "FlyingCar.h"
+#include "Pistol.h"
 
 
 int main()
@@ -40,8 +42,14 @@ int main()
 
 	*/
 
+	FlyingCar jetsons(2025, "Tesla", "X-Plane", 0, 500);
+	jetsons.refuel();
 
 
+	//Create a Pistol class that derives from Weapon
+	//add rounds and magCapacity fields w/ getters/setters
+	//add a ctor that initializes the pistol and weapon parts
+	Pistol pewpew(200, 50, 5, 15);
 	/*
 		╔*************╗
 		║  CHALLENGE  ║
