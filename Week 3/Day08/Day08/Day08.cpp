@@ -9,9 +9,22 @@
 #include "FlyingCar.h"
 #include "Pistol.h"
 
+void Counter()
+{
+	//static variables are in memory as long as 
+	//the app is running
+	static int count = 0;
+	std::cout << count << " ";
+	count++;
+}
 
 int main()
 {
+	for (int i = 0; i < 10; i++)
+	{
+		Counter();
+	}
+	std::cout << "\n\n";
 	/*
 		╔═══════════════╗
 		║  Inheritance  ║
@@ -43,6 +56,7 @@ int main()
 	*/
 
 	FlyingCar jetsons(2025, "Tesla", "X-Plane", 0, 500);
+	std::cout << jetsons.Altitude() << "\n";
 	jetsons.refuel();
 
 
@@ -50,6 +64,21 @@ int main()
 	//add rounds and magCapacity fields w/ getters/setters
 	//add a ctor that initializes the pistol and weapon parts
 	Pistol pewpew(200, 50, 5, 15);
+	pewpew.showMe();
+	//Weapon wpn(10, 100);//cannot create an instance of abstract classes
+
+	Account a1, a2;
+	a1.mBalance = 1000;
+	a2.mBalance = 2000;
+
+	Account a3 = a1 + a2;
+
+	derived d1("D1 obj", 5);
+	d1.print();
+
+	//override the showMe method of the Weapon class for the Pistol class
+	//print the details of the pistol while also printing the weapon details
+
 	/*
 		╔*************╗
 		║  CHALLENGE  ║

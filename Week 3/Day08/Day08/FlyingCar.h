@@ -15,6 +15,10 @@ public:
 		MaxAltitude(maxAltitude);
 	}
 
+	//function overloading:
+	//	the methods must be different on the parameters
+	//	- the # of parameters
+	//  - or the types of the parameters
 	int Altitude() const { return altitude_; }
 	void Altitude(int altitude)
 	{

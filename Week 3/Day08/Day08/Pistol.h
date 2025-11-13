@@ -10,6 +10,12 @@ public:
 	{
 	}
 
+	//override keyword tells the compiler to CHECK if there is a base method
+	//that matches this method. if not, it generates a BUILD error.
+	void showMe() override;
+
+	int calcDamage() override;
+
 	int Rounds() const { return rounds_; }
 	int MagCapacity() const { return magCapacity_; }
 
