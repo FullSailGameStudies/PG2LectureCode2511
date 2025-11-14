@@ -171,6 +171,10 @@ int main()
 	*/
 
 	{
+	//1) no other pointer can be pointed to this pistol
+	//   uPistol OWNS the memory exclusively
+	//2) it is automatically deleted when it goes out of scope
+	
 		//memory on the heap
 		std::unique_ptr<Pistol> uPistol =
 			std::make_unique<Pistol>(200, 100, 10, 5);
@@ -179,13 +183,10 @@ int main()
 		
 		std::vector<std::unique_ptr<Pistol>> pistols;
 		pistols.push_back(std::move(uPistol));//transfer ownership
-		uPistol->showMe();
+		uPistol->showMe();//won't work!
 
 	}//uPistol is auto-deleted here
 
-	//1) no other pointer can be pointed to this pistol
-	//   uPistol OWNS the memory exclusively
-	//2) it is automatically deleted when it goes out of scope
 
 
 
