@@ -2,6 +2,9 @@
 //
 
 #include <iostream>
+#include "Pistol.h"
+#include <vector>
+#include "Knife.h"
 
 
 class base
@@ -55,10 +58,74 @@ public:
 //initialize explicitly using the class name scoping
 int Car::mNumberOfCarsMade = 0;
 
+Car* StackMemory()
+{
+	//stack memory
+	int x = 10;
+	int* ptr = &x;
+	std::cout << ptr << "\t" << *ptr << "\n";
+	Car myCar(1988);
+	Car* pCar = &myCar;
+	std::cout << pCar << "\t" << pCar->mModelYear << "\n";
+	return pCar;
+}//all these variables are gone after the method
 
+Car* HeapMemory()
+{
+	//heap memory (dynamic memory)
+	//  ' = new' creates heap memory
+	//  so that it lives longer than the method
+	//  will be allocated until you delete it
+	Car* heapCar = new Car(1984);
+	return heapCar;
+}
 
 int main()
 {
+	Car* sCar = StackMemory();
+	std::cout << sCar->mModelYear << "\n";//???unpredictable
+	Car* hCar = HeapMemory();
+	std::cout << hCar->mModelYear << "\n";
+
+	//if you do NOT delete heap memory when you're done with it,
+	//you are leaking memory
+	//deallocates the memory. now that spot can be used for something else.
+	delete hCar;
+	hCar = nullptr;
+	//read access violation
+	//std::cout << hCar->mModelYear << "\n";
+
+	if (hCar != nullptr)
+	{
+		std::cout << hCar->mModelYear << "\n";
+	}
+
+	Car gsCar(2025);
+	Car todaysCar(gsCar);
+	Car jCar(2024);
+	jCar = todaysCar;//what happens. copies the data to jCar
+
+	Pistol pewpew(100, 200, 10, 5);
+	Weapon wpn = pewpew;//what happens? copies ONLY the weapon parts of pewpew
+
+	//what happens??? stores the memory address of pewpew
+	//UPCASTING: taking a derived type (Pistol) and casting it to a base type (Weapon)
+	//  ALWAYS safe b/c the compiler knows the relationship
+	Weapon* pWpn = &pewpew;
+	std::cout << pWpn->range() << "\n";
+
+	Knife stabby(3, 10, true);
+	std::vector<Weapon*> wpns;
+	wpns.push_back(&pewpew);
+	wpns.push_back(&stabby);
+
+	std::cout << "\n\nMy Inventory:\n";
+	for (auto& wpn : wpns)
+	{
+		wpn->showMe();//run-time polymorphism
+		std::cout << "\n";
+	}
+
 
 	/*
 		╔════════════╗
