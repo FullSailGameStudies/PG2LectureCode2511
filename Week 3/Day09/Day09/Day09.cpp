@@ -44,15 +44,22 @@ public:
 	int mModelYear; //each car has its own model year variable
 	static int mNumberOfCarsMade; //shared by ALL cars
 
+	//static methods
+	//  there is NO 'this' pointer
+	//  can ONLY access other static members
 	static void reporting()
 	{
 		//std::cout << "Model year: " << mModelYear << "\n"; //ERROR! cannot access non-static members
 		std::cout << "Number of cars made: " << mNumberOfCarsMade << "\n";
 	}
 
-	void vehicleInfo() //there's a hidden parameter called 'this'
+	//non-static methods:
+	//there's a hidden parameter called 'this'
+	// 'this' is a pointer to the object that called the method
+	// can access non-static AND static members
+	void vehicleInfo() 
 	{
-		std::cout << "Model Year: " << this->mModelYear << "\n";
+		std::cout << "Model Year: " << mModelYear << "\n";
 	}
 };
 //initialize explicitly using the class name scoping
@@ -104,6 +111,8 @@ int main()
 	Car todaysCar(gsCar);
 	Car jCar(2024);
 	jCar = todaysCar;//what happens. copies the data to jCar
+	gsCar.vehicleInfo();//passes &gsCar for the 'this' pointer
+	Car::reporting();
 
 	Pistol pewpew(100, 200, 10, 5);
 	Weapon wpn = pewpew;//what happens? copies ONLY the weapon parts of pewpew
@@ -112,6 +121,7 @@ int main()
 	//UPCASTING: taking a derived type (Pistol) and casting it to a base type (Weapon)
 	//  ALWAYS safe b/c the compiler knows the relationship
 	Weapon* pWpn = &pewpew;
+	Weapon* pWpn2 = pWpn;
 	std::cout << pWpn->range() << "\n";
 
 	Knife stabby(3, 10, true);
@@ -159,11 +169,23 @@ int main()
 			use make_unique and unique_ptr to create a derived instance
 			use std::move to upcast it to a base
 	*/
-	derived der1("Gotham", 1);
-	base base1 = der1; //calls the assignment operator of base therefore you lose all the derived parts. base1 is JUST a base object.
-	der1.print();
-	std::cout << "\n";
-	base1.print();
+
+	{
+		//memory on the heap
+		std::unique_ptr<Pistol> uPistol =
+			std::make_unique<Pistol>(200, 100, 10, 5);
+		uPistol->showMe();
+
+		
+		std::vector<std::unique_ptr<Pistol>> pistols;
+		pistols.push_back(std::move(uPistol));//transfer ownership
+		uPistol->showMe();
+
+	}//uPistol is auto-deleted here
+
+	//1) no other pointer can be pointed to this pistol
+	//   uPistol OWNS the memory exclusively
+	//2) it is automatically deleted when it goes out of scope
 
 
 
