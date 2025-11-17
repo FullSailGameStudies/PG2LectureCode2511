@@ -29,7 +29,7 @@ int main()
     std::cout << "Hello PG2!\n";
 
     std::string fileName = "2511.csv";
-    std::string path = "C:/temp/2511/";
+    std::string path = "";// "C:/temp/2511/";
     std::string fullPath = path + fileName;
     //will NOT create the path
     //it must exists first
@@ -190,6 +190,24 @@ int main()
 
     */
     std::string multi = "Batman^Bruce Wayne^35#Superman^Clark Kent^25#Wonder Woman^Diana Prince^25#Aquaman^Arthur Curry^12";
-    char collectionSeparator = '#';
-    char objectSeparator = '^';
+    char rowSeparator = '#';
+    char colSeparator = '^';
+    std::stringstream multiStream(multi);
+    while (not multiStream.eof())
+    {
+        std::string row;
+        std::getline(multiStream, row, rowSeparator);
+
+        std::stringstream rowStream(row);
+        std::string name, secret, ageStr;
+        int age;
+        std::getline(rowStream, name, colSeparator);
+        std::getline(rowStream, secret, colSeparator);
+        std::getline(rowStream, ageStr, colSeparator);
+        age = std::stoi(ageStr);
+
+        std::cout << "Hello citizen! I am " << name << "!";
+        std::cout << "(aka " << secret << ")";
+        std::cout << " I am " << age << " years old.\n";
+    }
 }
