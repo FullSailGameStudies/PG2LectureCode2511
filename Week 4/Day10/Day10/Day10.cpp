@@ -28,6 +28,31 @@ int main()
 {
     std::cout << "Hello PG2!\n";
 
+    std::string fileName = "2511.csv";
+    std::string path = "C:/temps/2511/";
+    std::string fullPath = path + fileName;
+    //will NOT create the path
+    //it must exists first
+    // 
+    //1) Open the file
+    std::ofstream outFile(fullPath);
+    char delimiter = '*';
+    if (outFile.is_open())
+    {
+        //2) write to the file
+        outFile << "Batman rules.";
+        outFile << delimiter << 12.7 << delimiter << true;
+        outFile << delimiter << 5 << delimiter << "Aquaman smells.";
+    }
+    else
+    {
+        std::cout << fullPath << " could not be opened.\n";
+    }
+
+    //3) Close the file.
+    //   GOOD PRACTICE: close it ASAP
+    outFile.close();
+
     /*
 
         ╔════════════════╗
