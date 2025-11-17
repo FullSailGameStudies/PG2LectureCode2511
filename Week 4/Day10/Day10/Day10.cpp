@@ -29,7 +29,7 @@ int main()
     std::cout << "Hello PG2!\n";
 
     std::string fileName = "2511.csv";
-    std::string path = "C:/temps/2511/";
+    std::string path = "C:/temp/2511/";
     std::string fullPath = path + fileName;
     //will NOT create the path
     //it must exists first
@@ -52,6 +52,70 @@ int main()
     //3) Close the file.
     //   GOOD PRACTICE: close it ASAP
     outFile.close();
+
+
+    //1) open the file
+    std::ifstream inFile(fullPath);
+    if (inFile.is_open())
+    {
+        //2) read the file
+        //use getline to read 1 line from the file
+        std::string line;
+
+        //read the data from the file until 
+        //it reaches a '\n' OR the end of the file (stream)
+        std::getline(inFile, line);
+        std::cout << line << "\n";
+
+        //parse the line to get each piece of data
+        //use std::stringstream from the sstream header
+        //use getline with the stringstream to get 1 piece of data
+        //at a time
+        std::string data;
+        std::stringstream lineStream(line);
+        //read the data from the stream until 
+        // it reaches a delimiter OR the end of the stream
+        std::getline(lineStream, data, delimiter);
+        std::cout << data << "\n";
+
+        // try-catch block
+        //   put your code that MIGHT throw an exception inside of the try block
+
+        try
+        {
+            double dVal;
+            std::getline(lineStream, data, delimiter);
+            dVal = std::stod(data);
+            std::cout << dVal << "\n";
+
+            bool bVal;
+            std::getline(lineStream, data, delimiter);
+            bVal = std::stoi(data);// data == "1";
+            std::cout << bVal << "\n";
+
+            int iVal;
+            std::getline(lineStream, data, delimiter);
+            iVal = std::stoi(data);
+            std::cout << iVal << "\n";
+        }
+        //you can have multiple catch blocks
+        //more specific catch blocks first
+        catch (const std::exception& ex)
+        {
+            std::cout << "exception when processing " << data << "\n";
+            std::cout << ex.what() << "\n";
+        }
+        std::getline(lineStream, data, delimiter);
+        std::cout << data << "\n";
+    }
+    else
+    {
+        std::cout << fullPath << " could not be opened.\n";
+    }
+
+    //3) close the file
+    inFile.close();
+       
 
     /*
 
