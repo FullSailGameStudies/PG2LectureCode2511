@@ -12,6 +12,19 @@ int main()
 {
     std::cout << "Gone in 60 Seconds!\n";//https://carbuzz.com/features/beyond-eleanor-gone-in-60-seconds-car-names#:~:text=The%20Complete%20List%20Of%20Gone%20In%2060%20Seconds,8%201961%20Porsche%20Speedster%20-%20%22Natalie%22%20More%20items
 
+    Car myRide(1967, "Ford", "Shelby Mustang GT500");
+    std::string fileName = "garage.csv";
+    char delim = '?';
+    std::ofstream oFile(fileName);
+    if (oFile.is_open())
+    {
+        myRide.SerializeCSV(oFile, delim);
+    }
+    else
+    {
+        std::cout << "ERROR: " << fileName << " could not be opened.\n";
+    }
+    oFile.close();
 
     std::vector<Car> garage;
     garage.push_back(Car(1967, "Ford", "Shelby Mustang GT500"));
@@ -19,6 +32,52 @@ int main()
     garage.push_back(Car(1961, "Porsche", "Speedster"));
     garage.push_back(Car(1965, "Pontiac", "GTO"));
     garage.push_back(Car(1969, "Plymouth", "Hemi Cuda"));
+
+    oFile.open(fileName);
+    char rowDelim = '\n';
+    if (oFile.is_open())
+    {
+        int notfirst = 0;
+        for (auto& car : garage)
+        {
+            if(notfirst++) oFile << rowDelim;
+            car.SerializeCSV(oFile, delim);
+        }
+    }
+    else
+    {
+        std::cout << "ERROR: " << fileName << " could not be opened.\n";
+    }
+    oFile.close();
+
+    std::vector<Car> loadedCars;
+    std::ifstream iFile(fileName);
+    if (iFile.is_open())
+    {
+        while (not iFile.eof())
+        {
+            std::string line;
+            std::getline(iFile, line);
+            if (line.empty()) continue;
+
+            Car nextCar(line, delim);
+            loadedCars.push_back(nextCar);
+        }
+    }
+    else
+    {
+        std::cout << "ERROR: " << fileName << " could not be opened.\n";
+    }
+    iFile.close();
+
+    std::cout << "\n\nGarage: \n";
+    for (auto& car : loadedCars)
+    {
+        //std::cout << car.vehicleInformation() << "\n";
+        car.SerializeCSV(std::cout, ' ');
+        std::cout << "\n";
+    }
+
 
 
     /*
